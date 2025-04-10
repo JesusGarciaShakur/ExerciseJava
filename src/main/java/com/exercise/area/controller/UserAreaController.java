@@ -17,39 +17,45 @@ import java.util.List;
 @RequestMapping("/user-areas")
 public class UserAreaController {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    @Autowired
-    private AreaRepository areaRepository;
+	@Autowired
+	private AreaRepository areaRepository;
 
-    @Autowired
-    private UserAreaRepository userAreaRepository;
+	@Autowired
+	private UserAreaRepository userAreaRepository;
 
-    // Mostrar formulario de asignación
-    @GetMapping("/assign")
-    public String showAssignForm(Model model) {
-        model.addAttribute("users", userRepository.findAll());
-        model.addAttribute("areas", areaRepository.findAll());
-        return "area/assign-area";
-    }
+	@GetMapping("/list")
+	public String listUserAreas(Model model) {
+		List<User> users = userRepository.findAll();
+		model.addAttribute("users", users);
+		return "area/user-areas-list";
+	}
 
-    // Procesar formulario
-    @PostMapping("/assign")
-    public String assignAreasToUser(@RequestParam("userId") Integer userId,
-                                    @RequestParam("areaIds") List<Integer> areaIds) {
+	@GetMapping("/assign")
+	public String showAssignForm(Model model) {
+		model.addAttribute("users", userRepository.findAll());
+		model.addAttribute("areas", areaRepository.findAll());
+		return "area/assign-area";
+	}
 
-        User user = userRepository.findById(userId).orElse(null);
-        if (user == null) return "redirect:/user-areas/assign?error=user";
+	@PostMapping("/assign")
+	public String assignAreasToUser(@RequestParam("userId") Integer userId,
+			@RequestParam("areaIds") List<Integer> areaIds) {
 
-        for (Integer areaId : areaIds) {
-            Area area = areaRepository.findById(areaId).orElse(null);
-            if (area != null) {
-                UserArea userArea = new UserArea(user, area);
-                userAreaRepository.save(userArea);
-            }
-        }
+		User user = userRepository.findById(userId).orElse(null);
+		if (user == null)
+			return "redirect:/user-areas/assign?error=user";
 
-        return "redirect:/user-areas/assign?success";
-    }
+		for (Integer areaId : areaIds) {
+			Area area = areaRepository.findById(areaId).orElse(null);
+			if (area != null) {
+				UserArea userArea = new UserArea(user, area);
+				userAreaRepository.save(userArea);
+			}
+		}
+
+		return "redirect:/user-areas/assign?success";
+	}
 }

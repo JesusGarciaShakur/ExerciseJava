@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Usuarios y sus Áreas</title>
-    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Areas</title>
+
+	<!-- Bootstrap CSS -->
+	<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/css/heroic-features.css}" rel="stylesheet">
 </head>
 <body>
 
-<div th:include="home/base.html::header"></div>
+	<!-- Header común -->
+	<div th:include="home/base.html::header"></div>
 
-<div class="container mt-4">
-    <h2>Usuarios y Áreas Asignadas</h2>
+	<div class="container mt-4">
+		<h2>Tabla de usuarios y Areas</h2>
+		<table class="table table-bordered table-hover mt-3">
+		    <thead class="thead-dark">
+		        <tr>
+		            <th>Nombre</th>
+		            <th>Correo</th>
+		            <th>Áreas Asignadas</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr th:each="user : ${users}">
+		            <td th:text="${user.firstName + ' ' + user.lastName}"></td>
+		            <td th:text="${user.email}"></td>
+		            <td>
+		                <ul>
+		                    <li th:each="ua : ${user.userAreas}" th:text="${ua.area.areaName}"></li>
+		                </ul>
+		            </td>
+		        </tr>
+		    </tbody>
+		</table>
+	</div>
 
-    <table class="table table-bordered table-hover mt-3">
-        <thead class="thead-dark">
-            <tr>
-                <th>Nombre</th>
-                <th>Correo</th>
-                <th>Áreas Asignadas</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.firstName + ' ' + user.lastName}"></td>
-                <td th:text="${user.email}"></td>
-                <td>
-                    <ul>
-                        <li th:each="ua : ${user.userAreas}" th:text="${ua.area.areaName}"></li>
-                    </ul>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+	<!-- Footer común -->
+	<div th:include="home/base.html::footer"></div>
 
-<div th:include="home/base.html::footer"></div>
-
-<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<!-- Bootstrap JS -->
+	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
