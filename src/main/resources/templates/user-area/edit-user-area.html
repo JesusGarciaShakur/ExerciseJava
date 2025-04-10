@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Editar Asignación</title>
+	<title>Editar Usuario</title>
 	<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 
@@ -12,6 +12,8 @@
 	<div th:include="home/base.html::header"></div>
 
 	<div class="container mt-4">
+		<h2>Editar Usuario-Area</h2>
+
 		<h2>Editar Área Asignada</h2>
 		<form th:action="@{'/user-areas/edit/' + ${userArea.id}}" method="post">
 			<div class="form-group">
@@ -38,6 +40,8 @@
 	</div>
 
 	<div th:include="home/base.html::footer"></div>
+
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 
 </html>

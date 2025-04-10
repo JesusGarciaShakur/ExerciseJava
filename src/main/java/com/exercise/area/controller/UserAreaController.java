@@ -86,6 +86,6 @@ public class UserAreaController {
 			}
 		}
 
-		return "redirect:/user-areas/assign?success";
+		return "redirect:/user-areas/list";
 	}
 }
