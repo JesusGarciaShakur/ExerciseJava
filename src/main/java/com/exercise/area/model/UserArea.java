@@ -1,58 +1,52 @@
 package com.exercise.area.model;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "user_areas")
-
+@Table(name = "user_area")
 public class UserArea {
-	@EmbeddedId
-	private UserAreaId id;
 
-	@ManyToOne
-	@MapsId("userId")
-	@JoinColumn(name = "user_id")
-	private User user;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@ManyToOne
-	@MapsId("areaId")
-	@JoinColumn(name = "area_id")
-	private Area area;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-	public UserAreaId getId() {
-		return id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "area_id", nullable = false)
+    private Area area;
 
-	public void setId(UserAreaId id) {
-		this.id = id;
-	}
+    public UserArea() {
+    }
 
-	public User getUser() {
-		return user;
-	}
+    public UserArea(User user, Area area) {
+        this.user = user;
+        this.area = area;
+    }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public Area getArea() {
-		return area;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setArea(Area area) {
-		this.area = area;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public UserArea(UserAreaId id, User user, Area area) {
-		super();
-		this.id = id;
-		this.user = user;
-		this.area = area;
-	}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
 }
