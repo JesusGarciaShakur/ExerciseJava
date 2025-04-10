@@ -3,7 +3,6 @@ package com.exercise.area.model;
 
 import jakarta.persistence.Embeddable;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Embeddable
 public class UserAreaId implements Serializable {
