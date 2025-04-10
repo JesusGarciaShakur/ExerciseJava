@@ -21,10 +21,10 @@ public class Area {
 	private Integer areaId;
 
 	@Column(nullable = false, unique = true, length = 100)
-	private String name;
+	private String areaName;
 
 	@Column(length = 500)
-	private String description;
+	private String areaDescription;
 
 	@OneToMany(mappedBy = "area")
 	private List<UserArea> userAreas = new ArrayList<>();
@@ -37,20 +37,20 @@ public class Area {
 		this.areaId = areaId;
 	}
 
-	public String getName() {
-		return name;
+	public String getAreaName() {
+		return areaName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getAreaDescription() {
+		return areaDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setAreaDescription(String areaDescription) {
+		this.areaDescription = areaDescription;
 	}
 
 	public List<UserArea> getUserAreas() {
@@ -61,11 +61,15 @@ public class Area {
 		this.userAreas = userAreas;
 	}
 
-	public Area(Integer areaId, String name, String description, List<UserArea> userAreas) {
+	public Area() {
+
+	}
+
+	public Area(Integer areaId, String areaName, String areaDescription, List<UserArea> userAreas) {
 		super();
 		this.areaId = areaId;
-		this.name = name;
-		this.description = description;
+		this.areaName = areaName;
+		this.areaDescription = areaDescription;
 		this.userAreas = userAreas;
 	}
 
