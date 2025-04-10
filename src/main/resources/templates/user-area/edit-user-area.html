@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Editar Asignación</title>
+	<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body>
+
+	<div th:include="home/base.html::header"></div>
+
+	<div class="container mt-4">
+		<h2>Editar Área Asignada</h2>
+		<form th:action="@{'/user-areas/edit/' + ${userArea.id}}" method="post">
+			<div class="form-group">
+				<label>Usuario</label>
+				<input type="text" th:value="${userArea.user.firstName + ' ' + userArea.user.lastName}"
+					class="form-control" readonly />
+			</div>
+
+			<div class="form-group">
+				<label>Área actual</label>
+				<input type="text" th:value="${userArea.area.areaName}" class="form-control" readonly />
+			</div>
+
+			<div class="form-group">
+				<label>Nueva área</label>
+				<select name="areaId" class="form-control">
+					<option th:each="area : ${areas}" th:value="${area.areaId}" th:text="${area.areaName}"></option>
+				</select>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Guardar cambios</button>
+			<a th:href="@{/user-areas/list}" class="btn btn-secondary">Cancelar</a>
+		</form>
+	</div>
+
+	<div th:include="home/base.html::footer"></div>
+</body>
+
+</html>

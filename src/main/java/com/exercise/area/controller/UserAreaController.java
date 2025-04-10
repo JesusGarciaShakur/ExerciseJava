@@ -30,14 +30,44 @@ public class UserAreaController {
 	public String listUserAreas(Model model) {
 		List<User> users = userRepository.findAll();
 		model.addAttribute("users", users);
-		return "area/user-areas-list";
+		return "user-area/user-areas-list";
+	}
+
+	@GetMapping("/edit/{id}")
+	public String showEditForm(@PathVariable("id") Integer id, Model model) {
+		UserArea userArea = userAreaRepository.findById(id).orElse(null);
+		if (userArea == null)
+			return "redirect:/user-areas/list?error=notfound";
+
+		model.addAttribute("userArea", userArea);
+		model.addAttribute("areas", areaRepository.findAll());
+		return "user-area/edit-user-area";
+	}
+
+	@PostMapping("/edit/{id}")
+	public String updateUserArea(@PathVariable("id") Integer id, @RequestParam("areaId") Integer newAreaId) {
+		UserArea userArea = userAreaRepository.findById(id).orElse(null);
+		Area newArea = areaRepository.findById(newAreaId).orElse(null);
+
+		if (userArea != null && newArea != null) {
+			userArea.setArea(newArea);
+			userAreaRepository.save(userArea);
+		}
+
+		return "redirect:/user-areas/list?updated";
+	}
+
+	@PostMapping("/delete/{id}")
+	public String deleteUserArea(@PathVariable("id") Integer id) {
+		userAreaRepository.deleteById(id);
+		return "redirect:/user-areas/list?deleted";
 	}
 
 	@GetMapping("/assign")
 	public String showAssignForm(Model model) {
 		model.addAttribute("users", userRepository.findAll());
 		model.addAttribute("areas", areaRepository.findAll());
-		return "area/assign-area";
+		return "user-area/assign-area";
 	}
 
 	@PostMapping("/assign")
