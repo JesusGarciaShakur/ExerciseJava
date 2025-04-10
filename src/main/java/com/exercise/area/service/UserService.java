@@ -49,4 +49,5 @@ public class UserService {
                 .filter(user -> !user.getLoginRecords().isEmpty())
                 .collect(Collectors.toList());
     }
+
 }

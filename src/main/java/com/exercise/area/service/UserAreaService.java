@@ -25,15 +25,9 @@ public class UserAreaService {
         Area area = areaService.getAreaById(areaId).orElseThrow();
 
         UserAreaId userAreaId = new UserAreaId(userId.toString(), areaId);
-        UserArea userArea = new UserArea(userAreaId, user, area);
+        UserArea userArea = new UserArea(user, area);
         
         return userAreaRepository.save(userArea);
-    }
-
-    @Transactional
-    public void removeAreaFromUser(Integer userId, Integer areaId) {
-        UserAreaId userAreaId = new UserAreaId(userId.toString(), areaId);
-        userAreaRepository.deleteById(userAreaId);
     }
 
     public List<UserArea> getUserAreas(Integer userId) {
