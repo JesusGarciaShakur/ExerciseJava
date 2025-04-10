@@ -51,4 +51,10 @@ public class UserController {
         userService.deleteUser(id);
         return "redirect:/users";
     }
+    
+    @GetMapping("/logged-users")
+    public String getLoggedUsers(Model model) {
+        model.addAttribute("users", userService.getLoggedInUsersWithLastLogin());
+        return "user/logged-users";
+    }
 }

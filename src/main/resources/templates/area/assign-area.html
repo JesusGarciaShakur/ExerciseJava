@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Asignar Áreas</title>
+	<!-- Bootstrap CSS -->
+	<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/css/heroic-features.css}" rel="stylesheet">
+</head>
+
+<body>
+
+	<!-- Header común -->
+	<div th:include="home/base.html::header"></div>
+
+	<div class="container mt-4">
+		<h2>Asignar Áreas a: <span th:text="${user.firstName + ' ' + user.lastName}"></span></h2>
+
+		<form th:action="@{/user-areas/assign}" method="post">
+			<input type="hidden" name="userId" th:value="${user.userId}">
+
+			<div class="form-group">
+				<label>Seleccionar Áreas:</label>
+				<select name="areaId" class="form-control" multiple>
+					<option th:each="area : ${allAreas}" th:value="${area.areaId}"
+						th:text="${area.areaName + ' - ' + area.areaDescription}">
+					</option>
+				</select>
+				<small class="form-text text-muted">Mantén presionado Ctrl para seleccionar múltiples áreas</small>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Asignar Áreas</button>
+			<a th:href="@{/users}" class="btn btn-secondary">Cancelar</a>
+		</form>
+
+		<h3 class="mt-4">Áreas Asignadas</h3>
+		<table class="table table-striped mt-2">
+			<thead>
+				<tr>
+					<th>Área</th>
+					<th>Descripción</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="userArea : ${user.userAreas}">
+					<td th:text="${userArea.area.areaName}"></td>
+					<td th:text="${userArea.area.areaDescription}"></td>
+					<td>
+						<a th:href="@{/user-areas/remove?userId={uid}&areaId={aid}(uid=${user.userId}, aid=${userArea.area.areaId})}"
+							class="btn btn-danger btn-sm" onclick="return confirm('¿Quitar esta área al usuario?')">
+							Quitar
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Footer común -->
+	<div th:include="home/base.html::footer"></div>
+
+	<!-- Bootstrap JS -->
+	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

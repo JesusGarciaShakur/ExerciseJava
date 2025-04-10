@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -37,5 +38,15 @@ public class UserService {
 
     public void deleteUser(Integer id) {
         userRepository.deleteById(id);
+    }
+    
+    public User findByEmailAndPassword(String email, String password) {
+        return userRepository.findByEmailAndPassword(email, password);
+    }
+    
+    public List<User> getLoggedInUsersWithLastLogin() {
+        return userRepository.findAll().stream()
+                .filter(user -> !user.getLoginRecords().isEmpty())
+                .collect(Collectors.toList());
     }
 }

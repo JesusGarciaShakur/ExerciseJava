@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Usuarios Logueados</title>
+	<!-- Bootstrap CSS -->
+	<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/css/heroic-features.css}" rel="stylesheet">
+</head>
+
+<body>
+
+	<!-- Header común -->
+	<div th:include="home/base.html::header"></div>
+
+	<div class="container mt-4">
+		<h2>Usuarios Logueados</h2>
+
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Área(s)</th>
+					<th>Último Login</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${users}">
+					<td th:text="${user.userId}"></td>
+					<td th:text="${user.firstName + ' ' + user.lastName}"></td>
+					<td>
+						<span th:each="userArea : ${user.userAreas}"
+							th:text="${userArea.area.areaName + (userAreaStat.last ? '' : ', ')}"></span>
+					</td>
+					<td th:text="${#temporals.format(user.loginRecords[0].loginTime, 'dd/MM/yyyy HH:mm')}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Footer común -->
+	<div th:include="home/base.html::footer"></div>
+
+	<!-- Bootstrap JS -->
+	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

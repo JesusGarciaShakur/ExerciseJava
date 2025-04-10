@@ -42,6 +42,10 @@ public class LoginRecord {
 	public void setLoginTime(LocalDateTime loginTime) {
 		this.loginTime = loginTime;
 	}
+	
+	public LoginRecord() {
+		
+	}
 
 	public LoginRecord(Long loginId, User user, LocalDateTime loginTime) {
 		super();
