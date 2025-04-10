@@ -20,6 +20,12 @@ public class LoginRecordController {
 	@Autowired
 	private LoginRecordService loginRecordService;
 
+	
+	@GetMapping("/")
+    public String rootRedirect() {
+        return "redirect:/login";
+    }
+	
 	@GetMapping("/login")
 	public String showLoginForm(@RequestParam(required = false) String error,
 			@RequestParam(required = false) String logout, Model model) {
