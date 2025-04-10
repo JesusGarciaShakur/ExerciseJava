@@ -95,6 +95,10 @@ public class User {
 		this.loginRecords = loginRecords;
 	}
 
+	public User() {
+
+	}
+
 	public User(Integer userId, String firstName, String lastName, String email, String password,
 			List<UserArea> userAreas, List<LoginRecord> loginRecords) {
 		super();

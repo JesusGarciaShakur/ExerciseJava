@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Usuarios</title>
+
+	<!-- Bootstrap CSS -->
+	<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/css/heroic-features.css}" rel="stylesheet">
+</head>
+<body>
+
+	<!-- Header común -->
+	<div th:include="home/base.html::header"></div>
+
+	<div class="container mt-4">
+		<h2>Usuarios</h2>
+
+		<a class="btn btn-primary mb-3" th:href="@{/users/create}">Crear Usuario</a>
+
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Email</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${users}">
+					<td th:text="${user.userId}">1</td>
+					<td th:text="${user.firstName}">Juan</td>
+					<td th:text="${user.lastName}">Pérez</td>
+					<td th:text="${user.email}">juan@example.com</td>
+					<td>
+						<a th:href="@{/users/edit/{id}(id=${user.userId})}" class="btn btn-warning btn-sm">Editar</a>
+						<a th:href="@{/users/delete/{id}(id=${user.userId})}" class="btn btn-danger btn-sm"
+						   onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Footer común -->
+	<div th:include="home/base.html::footer"></div>
+
+	<!-- Bootstrap JS -->
+	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
