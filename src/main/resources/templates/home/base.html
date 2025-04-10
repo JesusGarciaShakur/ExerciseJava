@@ -11,7 +11,7 @@
 
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<!-- Menú desplegable -->
+					<!-- Menu -->
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle text-uppercase font-weight-bold" href="#"
 							id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -26,7 +26,7 @@
 						</div>
 					</li>
 
-					<!-- Botón de Logout -->
+					<!-- Logout -->
 					<li class="nav-item" th:if="${session.user != null}">
 						<form th:action="@{/logout}" method="post" class="nav-link">
 							<button type="submit" class="btn btn-link text-light p-0 border-0"

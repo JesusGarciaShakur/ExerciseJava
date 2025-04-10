@@ -11,30 +11,30 @@ import java.util.Optional;
 @Service
 public class AreaService {
 
-    @Autowired
-    private AreaRepository areaRepository;
-    
-    public Area createArea(Area area) {
-        return areaRepository.save(area);
-    }
+	@Autowired
+	private AreaRepository areaRepository;
 
-    public List<Area> getAllAreas() {
-        return areaRepository.findAll();
-    }
+	public Area createArea(Area area) {
+		return areaRepository.save(area);
+	}
 
-    public Optional<Area> getAreaById(Integer areaId) {
-        return areaRepository.findById(areaId);
-    }
+	public List<Area> getAllAreas() {
+		return areaRepository.findAll();
+	}
 
-    public Area updateArea(Integer id, Area areaDetails) {
-        return areaRepository.findById(id).map(area -> {
-            area.setAreaName(areaDetails.getAreaName());
-            area.setAreaDescription(areaDetails.getAreaDescription());
-            return areaRepository.save(area);
-        }).orElse(null);
-    }
+	public Optional<Area> getAreaById(Integer areaId) {
+		return areaRepository.findById(areaId);
+	}
 
-    public void deleteArea(Integer areaId) {
-        areaRepository.deleteById(areaId);
-    }
+	public Area updateArea(Integer id, Area areaDetails) {
+		return areaRepository.findById(id).map(area -> {
+			area.setAreaName(areaDetails.getAreaName());
+			area.setAreaDescription(areaDetails.getAreaDescription());
+			return areaRepository.save(area);
+		}).orElse(null);
+	}
+
+	public void deleteArea(Integer areaId) {
+		areaRepository.deleteById(areaId);
+	}
 }

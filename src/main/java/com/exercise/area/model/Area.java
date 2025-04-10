@@ -29,6 +29,18 @@ public class Area {
 	@OneToMany(mappedBy = "area")
 	private List<UserArea> userAreas = new ArrayList<>();
 
+	public Area() {
+
+	}
+
+	public Area(Integer areaId, String areaName, String areaDescription, List<UserArea> userAreas) {
+		super();
+		this.areaId = areaId;
+		this.areaName = areaName;
+		this.areaDescription = areaDescription;
+		this.userAreas = userAreas;
+	}
+
 	public Integer getAreaId() {
 		return areaId;
 	}
@@ -58,18 +70,6 @@ public class Area {
 	}
 
 	public void setUserAreas(List<UserArea> userAreas) {
-		this.userAreas = userAreas;
-	}
-
-	public Area() {
-
-	}
-
-	public Area(Integer areaId, String areaName, String areaDescription, List<UserArea> userAreas) {
-		super();
-		this.areaId = areaId;
-		this.areaName = areaName;
-		this.areaDescription = areaDescription;
 		this.userAreas = userAreas;
 	}
 

@@ -10,27 +10,27 @@ import java.util.List;
 @Service
 public class UserAreaService {
 
-    @Autowired
-    private UserAreaRepository userAreaRepository;
+	@Autowired
+	private UserAreaRepository userAreaRepository;
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @Autowired
-    private AreaService areaService;
+	@Autowired
+	private AreaService areaService;
 
-    @Transactional
-    public UserArea assignAreaToUser(Integer userId, Integer areaId) {
-        User user = userService.getUserById(userId).orElseThrow();
-        Area area = areaService.getAreaById(areaId).orElseThrow();
+	@Transactional
+	public UserArea assignAreaToUser(Integer userId, Integer areaId) {
+		User user = userService.getUserById(userId).orElseThrow();
+		Area area = areaService.getAreaById(areaId).orElseThrow();
 
-        UserAreaId userAreaId = new UserAreaId(userId.toString(), areaId);
-        UserArea userArea = new UserArea(user, area);
-        
-        return userAreaRepository.save(userArea);
-    }
+		UserAreaId userAreaId = new UserAreaId(userId.toString(), areaId);
+		UserArea userArea = new UserArea(user, area);
 
-    public List<UserArea> getUserAreas(Integer userId) {
-        return userAreaRepository.findByUserUserId(userId);
-    }
+		return userAreaRepository.save(userArea);
+	}
+
+	public List<UserArea> getUserAreas(Integer userId) {
+		return userAreaRepository.findByUserUserId(userId);
+	}
 }

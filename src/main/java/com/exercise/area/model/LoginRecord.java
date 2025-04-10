@@ -19,6 +19,17 @@ public class LoginRecord {
 	@Column(nullable = false)
 	private LocalDateTime loginTime;
 
+	public LoginRecord() {
+
+	}
+
+	public LoginRecord(Long loginId, User user, LocalDateTime loginTime) {
+		super();
+		this.loginId = loginId;
+		this.user = user;
+		this.loginTime = loginTime;
+	}
+
 	public Long getLoginId() {
 		return loginId;
 	}
@@ -40,17 +51,6 @@ public class LoginRecord {
 	}
 
 	public void setLoginTime(LocalDateTime loginTime) {
-		this.loginTime = loginTime;
-	}
-	
-	public LoginRecord() {
-		
-	}
-
-	public LoginRecord(Long loginId, User user, LocalDateTime loginTime) {
-		super();
-		this.loginId = loginId;
-		this.user = user;
 		this.loginTime = loginTime;
 	}
 

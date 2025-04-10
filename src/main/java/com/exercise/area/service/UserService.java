@@ -11,43 +11,42 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    public User createUser(User user) {
-        return userRepository.save(user);
-    }
+	public User createUser(User user) {
+		return userRepository.save(user);
+	}
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
 
-    public Optional<User> getUserById(Integer id) {
-        return userRepository.findById(id);
-    }
+	public Optional<User> getUserById(Integer id) {
+		return userRepository.findById(id);
+	}
 
-    public User updateUser(Integer id, User userDetails) {
-        return userRepository.findById(id).map(user -> {
-            user.setFirstName(userDetails.getFirstName());
-            user.setLastName(userDetails.getLastName());
-            user.setEmail(userDetails.getEmail());
-            user.setPassword(userDetails.getPassword());
-            return userRepository.save(user);
-        }).orElse(null);
-    }
+	public User updateUser(Integer id, User userDetails) {
+		return userRepository.findById(id).map(user -> {
+			user.setFirstName(userDetails.getFirstName());
+			user.setLastName(userDetails.getLastName());
+			user.setEmail(userDetails.getEmail());
+			user.setPassword(userDetails.getPassword());
+			return userRepository.save(user);
+		}).orElse(null);
+	}
 
-    public void deleteUser(Integer id) {
-        userRepository.deleteById(id);
-    }
-    
-    public User findByEmailAndPassword(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password);
-    }
-    
-    public List<User> getLoggedInUsersWithLastLogin() {
-        return userRepository.findAll().stream()
-                .filter(user -> !user.getLoginRecords().isEmpty())
-                .collect(Collectors.toList());
-    }
+	public void deleteUser(Integer id) {
+		userRepository.deleteById(id);
+	}
+
+	public User findByEmailAndPassword(String email, String password) {
+		return userRepository.findByEmailAndPassword(email, password);
+	}
+
+	public List<User> getLoggedInUsersWithLastLogin() {
+		return userRepository.findAll().stream().filter(user -> !user.getLoginRecords().isEmpty())
+				.collect(Collectors.toList());
+	}
 
 }

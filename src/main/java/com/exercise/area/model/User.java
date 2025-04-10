@@ -38,6 +38,22 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private List<LoginRecord> loginRecords = new ArrayList<>();
+	
+	public User() {
+
+	}
+
+	public User(Integer userId, String firstName, String lastName, String email, String password,
+			List<UserArea> userAreas, List<LoginRecord> loginRecords) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.userAreas = userAreas;
+		this.loginRecords = loginRecords;
+	}
 
 	public Integer getUserId() {
 		return userId;
@@ -92,22 +108,6 @@ public class User {
 	}
 
 	public void setLoginRecords(List<LoginRecord> loginRecords) {
-		this.loginRecords = loginRecords;
-	}
-
-	public User() {
-
-	}
-
-	public User(Integer userId, String firstName, String lastName, String email, String password,
-			List<UserArea> userAreas, List<LoginRecord> loginRecords) {
-		super();
-		this.userId = userId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
-		this.userAreas = userAreas;
 		this.loginRecords = loginRecords;
 	}
 

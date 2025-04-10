@@ -11,22 +11,22 @@ import java.util.List;
 @Service
 public class LoginRecordService {
 
-    @Autowired
-    private LoginRecordRepository loginRecordRepository;
+	@Autowired
+	private LoginRecordRepository loginRecordRepository;
 
-    public LoginRecord recordLogin(User user) {
-        LoginRecord record = new LoginRecord();
-        record.setUser(user);
-        record.setLoginTime(LocalDateTime.now());
-        return loginRecordRepository.save(record);
-    }
+	public LoginRecord recordLogin(User user) {
+		LoginRecord record = new LoginRecord();
+		record.setUser(user);
+		record.setLoginTime(LocalDateTime.now());
+		return loginRecordRepository.save(record);
+	}
 
-    public List<LoginRecord> getUserLoginHistory(Integer userId) {
-        return loginRecordRepository.findByUserUserIdOrderByLoginTimeDesc(userId);
-    }
+	public List<LoginRecord> getUserLoginHistory(Integer userId) {
+		return loginRecordRepository.findByUserUserIdOrderByLoginTimeDesc(userId);
+	}
 
-    public LocalDateTime getLastLoginTime(Integer userId) {
-        List<LoginRecord> records = loginRecordRepository.findByUserUserIdOrderByLoginTimeDesc(userId);
-        return records.isEmpty() ? null : records.get(0).getLoginTime();
-    }
+	public LocalDateTime getLastLoginTime(Integer userId) {
+		List<LoginRecord> records = loginRecordRepository.findByUserUserIdOrderByLoginTimeDesc(userId);
+		return records.isEmpty() ? null : records.get(0).getLoginTime();
+	}
 }

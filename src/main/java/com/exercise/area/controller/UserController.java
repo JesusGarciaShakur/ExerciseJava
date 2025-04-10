@@ -11,50 +11,51 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @GetMapping
-    public String listUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "user/list";
-    }
+	@GetMapping
+	public String listUsers(Model model) {
+		model.addAttribute("users", userService.getAllUsers());
+		return "user/list";
+	}
 
-    @GetMapping("/create")
-    public String showCreateForm(Model model) {
-    	model.addAttribute("user", new User());
-        return "user/create";
-    }
+	@GetMapping("/create")
+	public String showCreateForm(Model model) {
+		model.addAttribute("user", new User());
+		return "user/create";
+	}
 
-    @PostMapping("/save")
-    public String saveUser(@ModelAttribute User user) {
-        userService.createUser(user);
-        return "redirect:/users";
-    }
+	@PostMapping("/save")
+	public String saveUser(@ModelAttribute User user) {
+		userService.createUser(user);
+		return "redirect:/users";
+	}
 
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Integer id, Model model) {
-        User user = userService.getUserById(id).orElse(null);
-        if (user == null) return "redirect:/users";
-        model.addAttribute("user", user);
-        return "user/edit";
-    }
+	@GetMapping("/edit/{id}")
+	public String showEditForm(@PathVariable Integer id, Model model) {
+		User user = userService.getUserById(id).orElse(null);
+		if (user == null)
+			return "redirect:/users";
+		model.addAttribute("user", user);
+		return "user/edit";
+	}
 
-    @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable Integer id, @ModelAttribute User user) {
-        userService.updateUser(id, user);
-        return "redirect:/users";
-    }
+	@PostMapping("/update/{id}")
+	public String updateUser(@PathVariable Integer id, @ModelAttribute User user) {
+		userService.updateUser(id, user);
+		return "redirect:/users";
+	}
 
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable Integer id) {
-        userService.deleteUser(id);
-        return "redirect:/users";
-    }
-    
-    @GetMapping("/logged-users")
-    public String getLoggedUsers(Model model) {
-        model.addAttribute("users", userService.getLoggedInUsersWithLastLogin());
-        return "user/logged-users";
-    }
+	@GetMapping("/delete/{id}")
+	public String deleteUser(@PathVariable Integer id) {
+		userService.deleteUser(id);
+		return "redirect:/users";
+	}
+
+	@GetMapping("/logged-users")
+	public String getLoggedUsers(Model model) {
+		model.addAttribute("users", userService.getLoggedInUsersWithLastLogin());
+		return "user/logged-users";
+	}
 }
