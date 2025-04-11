@@ -50,6 +50,17 @@ public class UserAreaController {
 		Area newArea = areaRepository.findById(newAreaId).orElse(null);
 
 		if (userArea != null && newArea != null) {
+
+			Integer userId = userArea.getUser().getUserId();
+			boolean yaAsignado = userAreaRepository.findAll().stream()
+					.anyMatch(ua -> ua.getUser().getUserId().equals(userId)
+							&& ua.getArea().getAreaId().equals(newAreaId) && !ua.getId().equals(id));
+
+			if (yaAsignado) {
+
+				return "redirect:/user-areas/edit/" + id + "?error=duplicado";
+			}
+
 			userArea.setArea(newArea);
 			userAreaRepository.save(userArea);
 		}
@@ -78,14 +89,19 @@ public class UserAreaController {
 		if (user == null)
 			return "redirect:/user-areas/assign?error=user";
 
+		List<Integer> areasAsignadas = user.getUserAreas().stream().map(ua -> ua.getArea().getAreaId()).toList();
+
 		for (Integer areaId : areaIds) {
-			Area area = areaRepository.findById(areaId).orElse(null);
-			if (area != null) {
-				UserArea userArea = new UserArea(user, area);
-				userAreaRepository.save(userArea);
+			if (!areasAsignadas.contains(areaId)) {
+				Area area = areaRepository.findById(areaId).orElse(null);
+				if (area != null) {
+					UserArea userArea = new UserArea(user, area);
+					userAreaRepository.save(userArea);
+				}
 			}
 		}
 
-		return "redirect:/user-areas/list";
+		return "redirect:/user-areas/list?assigned";
 	}
+
 }

@@ -17,11 +17,11 @@
 		<form th:action="@{/areas/save}" th:object="${area}" method="post">
 			<div class="form-group">
 				<label for="firstName">Nombre del area</label>
-				<input type="text" th:field="*{areaName}" class="form-control" required>
+				<input type="text" th:field="*{areaName}" class="form-control" required minlength="1" pattern=".*\S.*">
 			</div>
 			<div class="form-group">
 				<label for="lastName">Descripcion del area</label>
-				<textarea type="text" th:field="*{areaDescription}" class="form-control" required> </textarea>
+				<textarea type="text" th:field="*{areaDescription}" class="form-control" required minlength="1" pattern=".*\S.*"> </textarea>
 			</div>
 			<button type="submit" class="btn btn-success">Guardar</button>
 			<a th:href="@{/areas}" class="btn btn-secondary">Cancelar</a>
